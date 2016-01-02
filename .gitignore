@@ -1,0 +1,8 @@
+/_build
+/cover
+/deps
+/output
+courses_paths_bu
+scraper
+erl_crash.dump
+*.ez

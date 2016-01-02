@@ -1,0 +1,2 @@
+defmodule CoursesScraper do
+end
