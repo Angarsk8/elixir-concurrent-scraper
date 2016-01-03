@@ -31,9 +31,9 @@ defmodule CoursesScraper.CLI do
 	"""
 	def run(argv) do
 		argv
-		|> parse_args
-		|> read_file_with_paths
-		|> process
+			|> parse_args
+			|> read_file_with_paths
+			|> process
 	end
 
 	@doc """
@@ -71,9 +71,9 @@ defmodule CoursesScraper.CLI do
 
 	def read_file_with_paths(path_to_file_with_paths) do
 		path_to_file_with_paths
-		|> File.read
-		|> handle_file_reading
-		|> String.split 
+			|> File.read
+			|> handle_file_reading
+			|> String.split 
 	end
 
 	@doc """
@@ -103,10 +103,10 @@ defmodule CoursesScraper.CLI do
 		create_output_environment(@output_dir, @output_file)
 
 		list_of_paths
-		|> parallel_process_list_of_paths
-		|> Enum.each(fn data ->
-			File.write "#{@output_dir}/#{@output_file}", data <> ",\n" , [:append]
-		end)
+			|> parallel_process_list_of_paths
+			|> Enum.each(fn data ->
+				File.write "#{@output_dir}/#{@output_file}", data <> ",\n" , [:append]
+			end)
 
 		Logger.info "The processing has finished succesfully"
 	end
@@ -136,14 +136,14 @@ defmodule CoursesScraper.CLI do
 	def parallel_process_list_of_paths(list_of_paths) do
 		me = self
 		list_of_paths
-		|> Enum.map(fn path -> 
-			spawn fn -> send me, { self, parallel_process(path) } end
-		end)
-		|> Enum.map(fn pid ->
-			receive do
-				{ ^pid, data } -> data
-			end
-		end)
+			|> Enum.map(fn path -> 
+				spawn fn -> send me, { self, parallel_process(path) } end
+			end)
+			|> Enum.map(fn pid ->
+				receive do
+					{ ^pid, data } -> data
+				end
+			end)
 	end
 
 	@doc """

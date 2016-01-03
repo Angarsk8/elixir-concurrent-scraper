@@ -78,7 +78,8 @@ defmodule CourseData do
 	"""
 	def get_category(doc, query) do
 		case find(doc, query) do
-			[] -> ["Unknown", "Unknown"]
+			[] -> 
+				["Unknown", "Unknown"]
 			[{_, _, [category]}, {_, _, [subcategory]}] -> 
 				for el <- [category, subcategory], do: String.strip el
 		end
@@ -90,9 +91,9 @@ defmodule CourseData do
 	"""
 	def get_topic(doc, query) do
 		doc  
-		|> find(query) 
-		|> text(deep: false) 
-		|> String.strip
+			|> find(query) 
+			|> text(deep: false) 
+			|> String.strip
 	end
 
 	@doc """
@@ -107,10 +108,10 @@ defmodule CourseData do
 			|> String.strip
 
 		~r/[-+]?\d*\,\d+|\d+/
-		|> Regex.scan(enrolled_info)
-		|> Enum.map(fn [inf] -> 
-			inf |> String.replace(~r/\,+\d+/, "") |> String.to_integer
-		end)
+			|> Regex.scan(enrolled_info)
+			|> Enum.map(fn [inf] -> 
+				inf |> String.replace(~r/\,+\d+/, "") |> String.to_integer
+			end)
 	end
 
 	@doc """
@@ -123,9 +124,9 @@ defmodule CourseData do
 			[]     -> 0.0
 			result -> 
 				result 
-				|> text(deep: false) 
-				|> String.strip 
-				|> String.to_float
+					|> text(deep: false) 
+					|> String.strip 
+					|> String.to_float
 		end
 	end
 
@@ -156,10 +157,10 @@ defmodule CourseData do
 	"""
 	def get_authors(doc, query) do
 		doc
-		|> find(query)
-		|> Enum.map(fn author ->
-			build_author_struct(author)
-		end)
+			|> find(query)
+			|> Enum.map(fn author ->
+				build_author_struct(author)
+			end)
 	end
 
 end

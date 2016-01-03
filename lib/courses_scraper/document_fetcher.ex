@@ -17,8 +17,8 @@ defmodule CoursesScraper.DocumentFetcher do
 	"""
 	def fetch(course_path) do
 		build_course_url(course_path)
-		|> HTTPoison.get(@user_agent, [recv_timeout: :infinity])
-		|> handle_response(course_path)
+			|> HTTPoison.get(@user_agent, [recv_timeout: :infinity])
+			|> handle_response(course_path)
 	end
 
 	@doc """

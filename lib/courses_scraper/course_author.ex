@@ -31,9 +31,9 @@ defmodule CourseAuthor do
 	"""
 	def get_author_name(author_tree, query) do
 		author_tree
-		|> find(query)
-		|> text(deep: false)
-		|> String.strip
+			|> find(query)
+			|> text(deep: false)
+			|> String.strip
 	end
 
 	@doc """
