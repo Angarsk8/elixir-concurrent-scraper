@@ -104,7 +104,7 @@ defmodule CoursesScraper.CLI do
 		list_of_paths
 			|> parallel_process_list_of_paths
 			|> Enum.each(fn data ->
-				File.write "#{@output_dir}/#{@output_file}", data <> ",\n", [:append]
+				File.write "#{@output_dir}/#{@output_file}", data, [:append]
 			end)
 
 		Logger.info "The processing has finished succesfully"

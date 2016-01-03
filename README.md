@@ -1,8 +1,19 @@
 ## Udemy Courses Scraping (Elixir/Mix Concurrent Version)
 
-Make sure you have Erlang and [Elixir](http://elixir-lang.org/install.html) installed before you follow the next steps. If you are using OSX, just run `brew install elixir` in a terminal prompt and it will install both Erlang and Elixir for you. 
+Make sure you have Erlang and [Elixir](http://elixir-lang.org/install.html) installed before you follow the next steps. If you are using OSX, just run `$ brew install elixir` and it will install both Erlang and Elixir for you. 
 
-### Usage
+### Basic Usage
+
+To execute this program, just run the following command:
+```
+$ ./courses_scraper courses_paths
+```
+
+Where `./courses_scraper` is the actual executable and `courses_paths` is the file that contains the list of paths to be scraped in the Udemy website. Both of them are provided in the current project.
+
+***Note***: you can provide your own file with some courses's paths by just pointing to that file when using the script.
+
+### Advanced Details
 
 To use this program you have to install the required depencies listed in the `mix.exs` file, specifically in the `deps` function. To install the dependencies just run `$ mix deps.get` in a terminal prompt and it will download all the files into a `deps` folder at the root level. Elixir Mix projects are in some way like Node projects (If you are familiar with Node), where basically all of yout project's dependencies live inside the project's directory. 
 
@@ -10,7 +21,7 @@ Once you have installed all of the dependencies, execute the Mix task `$ mix esc
 
 The purpose of this program is to scrape concurrently (separate processes) the data from some Udemy courses pages and retrieve the relevant data as a JSON document (see sample output below). This version proved to be upto ***6x*** times faster than the non concurrent version of this program and upto ***10x*** faster than a [Ruby](https://github.com/Angarsk8/udemy_courses_scraping) version of this program, in a couple of tests that I did in my computer. I haven't done any proper benchmark to test that better, but I will include one in the future. 
 
-To execute the program you have to run the following command in a shell prompt:
+To execute the program you have to run the following command:
 
 ```
 $ ./courses_scraper <path_to_the_file_with_courses_paths>
@@ -21,8 +32,7 @@ Where the `<path_to_the_file_with_courses_paths>` is a file containing the paths
 ```
  curso-completo-desarrollador-ios-15-apps android-basico
  curso-de-desarrollo-de-apps-para-ios-9 desarrollo-ios-con-swift 
- aprende-wordpress-sin-conocimientos-previos creando-paginas-web-con-html5-css3-y-bootstrap-3
- programacion-para-emprendedores ...
+ aprende-wordpress-sin-conocimientos-previos creando-paginas-web-con-html5-css3-y-bootstrap-3 programacion-para-emprendedores ...
 ```
 
 That means, the file must contains the paths that yield to their respective Udemy websites separated by one or more spaces. 
