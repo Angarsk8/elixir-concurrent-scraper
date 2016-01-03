@@ -17,7 +17,7 @@ defmodule CoursesScraper.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :httpoison, :floki, :poison, :jsx]]
+    [applications: [:logger, :httpoison, :floki, :poison, :jsx, :ex_doc]]
   end
 
   # Dependencies can be Hex packages:
@@ -34,7 +34,9 @@ defmodule CoursesScraper.Mixfile do
       {:httpoison, "~> 0.8.0"},
       {:floki, "~> 0.7.1"},
       {:poison, "~> 1.5"},
-      {:jsx, "~> 2.8"}
+      {:jsx, "~> 2.8"},
+      {:ex_doc, "~> 0.11.3"},
+      {:markdown, github: "devinus/markdown"}
     ]
   end
 

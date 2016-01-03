@@ -1,0 +1,273 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.11.3">
+    <title>CourseAuthor – Courses Scrapper v0.0.1</title>
+    <link rel="stylesheet" href="dist/app-ddd9717ad9.css" />
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="modules">
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+  <button class="sidebar-toggle">
+    <i class="icon-menu"></i>
+  </button>
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        Courses Scrapper
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.0.1
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">Courses Scrapper v0.0.1</small>
+        CourseAuthor
+        
+        
+          <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L1" title="View Source" class="view-source" rel="help">
+            <i class="icon-code"></i>
+          </a>
+        
+      </h1>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Provides a set of functions to crawl the data of a course&#39;s author.
+It brings the ability   to build a struct with the needed information about the author.</p>
+
+<h2>Example</h2>
+
+<pre><code class="iex elixir">iex&gt; author_tree = &lt;some_nested_tree_object&gt;
+&lt;some_nested_tree_object&gt;
+iex&gt; CourseAuthor.build_author_struct(author_tree)
+%CourseAuthor{
+    name: &quot;Rob Percival&quot;,
+    twitter: &quot;https://twitter.com/techedrob&quot;,
+    facebook: &quot;https://www.facebook.com/rpcodestars&quot;
+    googleplus: &quot;none&quot;,
+    linkedin: &quot;none&quot;,
+    youtube: &quot;https://www.youtube.com/user/robpercival&quot;
+}
+</code></pre>
+
+        </section>
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <i class="icon-link"></i>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#__struct__/0">__struct__()</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Defines the fixed structure of an author of a course</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#build_author_struct/1">build_author_struct(author_tree)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Build a struct that identifies an author of a course
+based on the HTML document tree passed as argument</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_author_name/2">get_author_name(author_tree, query)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Parses an HTML document tree that represents an author
+and find the name based on a CSS query</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_contact_link/2">get_contact_link(author_tree, keyword)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Parses an HTML document tree that represents an author
+and pattern match against a CSS query to find his 
+social media contact link</p>
+</div>
+  
+</div>
+
+  </div>
+
+
+          
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <i class="icon-link"></i>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="__struct__/0">
+  <div class="detail-header">
+    <a href="#__struct__/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">__struct__()</span>
+      
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L26" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Defines the fixed structure of an author of a course.</p>
+
+  </section>
+</div>
+<div class="detail" id="build_author_struct/1">
+  <div class="detail-header">
+    <a href="#build_author_struct/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">build_author_struct(author_tree)</span>
+      
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L57" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Build a struct that identifies an author of a course
+based on the HTML document tree passed as argument.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_author_name/2">
+  <div class="detail-header">
+    <a href="#get_author_name/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_author_name(author_tree, query)</span>
+      
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L32" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Parses an HTML document tree that represents an author
+and find the name based on a CSS query.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_contact_link/2">
+  <div class="detail-header">
+    <a href="#get_contact_link/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_contact_link(author_tree, keyword)</span>
+      
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L44" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+  <section class="docstring">
+    <p>Parses an HTML document tree that represents an author
+and pattern match against a CSS query to find his 
+social media contact link.</p>
+
+  </section>
+</div>
+
+        </section>
+      
+
+      
+
+      
+        <footer class="footer">
+      <p>
+        <span class="line">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.11.3),
+        </span>
+        <span class="line">
+          designed by
+          <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+      </p>
+      <button class="night-mode-toggle" />
+    </footer>
+  </div>
+</section>
+</div>
+  <script src="dist/app-6d2e071366.js"></script>
+  </body>
+</html>
+
