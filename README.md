@@ -19,12 +19,15 @@ $ ./courses_scraper <path_to_the_file_with_courses_paths>
 Where the `<path_to_the_file_with_courses_paths>` is a file containing the paths associated with the Udemy courses to be scraped. The file must have the following shape in order to work.
 
 ```
- curso-completo-desarrollador-ios-15-apps android-basico curso-de-desarrollo-de-apps-para-ios-9 desarrollo-ios-con-swift aprende-wordpress-sin-conocimientos-previos creando-paginas-web-con-html5-css3-y-bootstrap-3 programacion-para-emprendedores ...
+ curso-completo-desarrollador-ios-15-apps android-basico
+ curso-de-desarrollo-de-apps-para-ios-9 desarrollo-ios-con-swift 
+ aprende-wordpress-sin-conocimientos-previos creando-paginas-web-con-html5-css3-y-bootstrap-3
+ programacion-para-emprendedores ...
 ```
 
 That means, the file must contains the paths that yield to their respective Udemy websites separated by one or more spaces. 
 
-###S ample Outputs 
+### Sample Outputs 
 
 * ***output/courses.json***:
 
