@@ -77,7 +77,6 @@ defmodule CoursesScraper.CLI do
 	end
 
 	@doc """
-
 	Handles the reading process of a file.
 
 	* This function is resposible for handling the reading process. If it success it returns 
@@ -105,7 +104,7 @@ defmodule CoursesScraper.CLI do
 		list_of_paths
 			|> parallel_process_list_of_paths
 			|> Enum.each(fn data ->
-				File.write "#{@output_dir}/#{@output_file}", data <> ",\n" , [:append]
+				File.write "#{@output_dir}/#{@output_file}", data <> ",\n", [:append]
 			end)
 
 		Logger.info "The processing has finished succesfully"
@@ -147,7 +146,7 @@ defmodule CoursesScraper.CLI do
 	end
 
 	@doc """
-	This function is responsible for processign an individual path in a separate process.
+	This function is responsible for processing an individual path in a separate process.
 	If fetches the data from the course's website, then extract the data from the document,
 	then encode it into a JSON and finally prettify it. It handles any error that might 
 	happen during the execution, identifies the path that caused the error and purges it
