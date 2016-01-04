@@ -71,7 +71,7 @@
 
       
         <section id="moduledoc" class="docstring">
-          <p>Defines a command line tool to parse, fetch and process the data from an Udemy course&#39;s site</p>
+          <p>Defines a command line tool to parse, fetch and process the data from some Udemy courses&#39;s sites</p>
 
         </section>
       
@@ -96,8 +96,8 @@
     <a href="#create_output_environment/2">create_output_environment(dir, file)</a>
   </div>
   
-    <div class="summary-synopsis"><p>This function creates the output folder and file where the courses&#39;s information will be stored.
-If the file does exist already, then it will simply clear it out for the next write</p>
+    <div class="summary-synopsis"><p>This function creates the output location where the courses&#39;s information will be stored.
+If the file does exist already, it will simply clear it out for the next write</p>
 </div>
   
 </div>
@@ -124,27 +124,14 @@ alongside some description</p>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#parallel_process/1">parallel_process(path)</a>
+    <a href="#parallel_map_functions/2">parallel_map_functions(collection, list_of_functions)</a>
   </div>
   
-    <div class="summary-synopsis"><p>This function is responsible for processing an individual path in a separate process.
-If fetches the data from the course&#39;s website, then extract the data from the document,
-then encode it into a JSON and finally prettify it. It handles any error that might 
-happen during the execution, identifies the path that caused the error and purges it
-from the original file to avoid future ocurrences of the same error</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#parallel_process_list_of_paths/1">parallel_process_list_of_paths(list_of_paths)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>This function palallelizes the whole process. It gets the list of paths and map them into a list
-of spawned concurrent processes in the Erlang Virtual Machine, where each process is responsible
-for eventually sending a message to the current process with the processed data. That means, that 
-there will be as many processes as paths to be requested in the list of paths. Once all the
-processes have been spawned, we just wait for the messages to come</p>
+    <div class="summary-synopsis"><p>This function palallelizes the whole process. It gets a list of paths and a list of functions
+to be applied to each path. It basically maps a collection into a list of spawned concurrent
+processes, where each process is responsible for eventually sending a message to the current process
+with the processed data. That means, that there will be as many processes as paths to be requested
+in the list of paths. Once all the processes have been spawned, we just wait for the messages to come</p>
 </div>
   
 </div>
@@ -166,8 +153,8 @@ of using it</p>
     <a href="#process/1">process(list_of_paths)</a>
   </div>
   
-    <div class="summary-synopsis"><p>This is function is responsible for processing the whole list of paths .
-This transforms step by step the data and finally writes the result into an output file</p>
+    <div class="summary-synopsis"><p>This function is responsible for processing the whole list of paths. This transforms step by
+step the data and finally writes the result into an output file</p>
 </div>
   
 </div>
@@ -189,6 +176,16 @@ This transforms step by step the data and finally writes the result into an outp
 This describes the flow of execution and transformation of the data. First, it parses 
 the arguments from the command line, then it reads the file where the user has indicated
 the courses paths are located at, and then process those paths to get the courses information</p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#write_data_to_output_file/1">write_data_to_output_file(data)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>this function appends the data passed as argument into the output file where the courses&#39;s
+information will be stored</p>
 </div>
   
 </div>
@@ -227,8 +224,8 @@ the courses paths are located at, and then process those paths to get the course
   </div>
   
   <section class="docstring">
-    <p>This function creates the output folder and file where the courses&#39;s information will be stored.
-If the file does exist already, then it will simply clear it out for the next write.</p>
+    <p>This function creates the output location where the courses&#39;s information will be stored.
+If the file does exist already, it will simply clear it out for the next write.</p>
 
   </section>
 </div>
@@ -239,7 +236,7 @@ If the file does exist already, then it will simply clear it out for the next wr
     </a>
     <span class="signature">handle_file_reading(arg)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/scraper_cli.ex#L89" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/scraper_cli.ex#L88" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -278,34 +275,12 @@ alongside some description. </p>
 
   </section>
 </div>
-<div class="detail" id="parallel_process/1">
+<div class="detail" id="parallel_map_functions/2">
   <div class="detail-header">
-    <a href="#parallel_process/1" class="detail-link" title="Link to this function">
+    <a href="#parallel_map_functions/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">parallel_process(path)</span>
-      
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/scraper_cli.ex#L156" class="view-source" rel="help" title="View Source">
-       <i class="icon-code"></i>
-     </a>
-    
-  </div>
-  
-  <section class="docstring">
-    <p>This function is responsible for processing an individual path in a separate process.
-If fetches the data from the course&#39;s website, then extract the data from the document,
-then encode it into a JSON and finally prettify it. It handles any error that might 
-happen during the execution, identifies the path that caused the error and purges it
-from the original file to avoid future ocurrences of the same error.</p>
-
-  </section>
-</div>
-<div class="detail" id="parallel_process_list_of_paths/1">
-  <div class="detail-header">
-    <a href="#parallel_process_list_of_paths/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">parallel_process_list_of_paths(list_of_paths)</span>
+    <span class="signature">parallel_map_functions(collection, list_of_functions)</span>
       
       <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/scraper_cli.ex#L136" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
@@ -314,11 +289,11 @@ from the original file to avoid future ocurrences of the same error.</p>
   </div>
   
   <section class="docstring">
-    <p>This function palallelizes the whole process. It gets the list of paths and map them into a list
-of spawned concurrent processes in the Erlang Virtual Machine, where each process is responsible
-for eventually sending a message to the current process with the processed data. That means, that 
-there will be as many processes as paths to be requested in the list of paths. Once all the
-processes have been spawned, we just wait for the messages to come.</p>
+    <p>This function palallelizes the whole process. It gets a list of paths and a list of functions
+to be applied to each path. It basically maps a collection into a list of spawned concurrent
+processes, where each process is responsible for eventually sending a message to the current process
+with the processed data. That means, that there will be as many processes as paths to be requested
+in the list of paths. Once all the processes have been spawned, we just wait for the messages to come.</p>
 
   </section>
 </div>
@@ -351,15 +326,15 @@ of using it.</p>
     </a>
     <span class="signature">process(list_of_paths)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/scraper_cli.ex#L101" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/scraper_cli.ex#L100" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
   
   <section class="docstring">
-    <p>This is function is responsible for processing the whole list of paths .
-This transforms step by step the data and finally writes the result into an output file.</p>
+    <p>This function is responsible for processing the whole list of paths. This transforms step by
+step the data and finally writes the result into an output file. </p>
 
   </section>
 </div>
@@ -407,6 +382,25 @@ We perform a sane validation in the middle to ensure that the file was read succ
 This describes the flow of execution and transformation of the data. First, it parses 
 the arguments from the command line, then it reads the file where the user has indicated
 the courses paths are located at, and then process those paths to get the courses information</p>
+
+  </section>
+</div>
+<div class="detail" id="write_data_to_output_file/1">
+  <div class="detail-header">
+    <a href="#write_data_to_output_file/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">write_data_to_output_file(data)</span>
+      
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/scraper_cli.ex#L155" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+  <section class="docstring">
+    <p>this function appends the data passed as argument into the output file where the courses&#39;s
+information will be stored.</p>
 
   </section>
 </div>

@@ -6,10 +6,10 @@ defmodule CoursesScraper.CLI do
 	require Logger
 
 	import CoursesScraper.DocumentFetcher, only: [fetch: 1]
-	import CourseData, only: [extract_data: 1]
+	import CourseData, only: [build_course_struct: 1]
 
 	@moduledoc """
-	Defines a command line tool to parse, fetch and process the data from an Udemy course's site
+	Defines a command line tool to parse, fetch and process the data from some Udemy courses's sites
 	"""
 
 	@doc """
@@ -20,7 +20,7 @@ defmodule CoursesScraper.CLI do
 	"""
 	def main(argv) do
 		{ time, _ } = :timer.tc CoursesScraper.CLI, :run, [argv]
-		Logger.info "The overall processing took #{div(time, 60_000_000)} minutes to complete"
+		Logger.info "The overall processing took #{div(time, 60_000_000)} minutes (#{time} microseconds) to complete"
 	end
 
 	@doc """
@@ -94,25 +94,26 @@ defmodule CoursesScraper.CLI do
 	end
 
 	@doc """
-	This is function is responsible for processing the whole list of paths .
-	This transforms step by step the data and finally writes the result into an output file.
+	This function is responsible for processing the whole list of paths. This transforms step by
+	step the data and finally writes the result into an output file. 
 	"""
 	def process(list_of_paths) do
 
 		create_output_environment(@output_dir, @output_file)
 
-		list_of_paths
-			|> parallel_process_list_of_paths
-			|> Enum.each(fn data ->
-				File.write "#{@output_dir}/#{@output_file}", data, [:append]
-			end)
-
-		Logger.info "The processing has finished succesfully"
+			list_of_paths
+			|> parallel_map_functions([
+				&fetch/1,
+				&build_course_struct/1,
+				&Poison.encode!/1,
+				&:jsx.prettify/1,
+				&write_data_to_output_file/1
+			])
 	end
 
 	@doc """
-	This function creates the output folder and file where the courses's information will be stored.
-	If the file does exist already, then it will simply clear it out for the next write.
+	This function creates the output location where the courses's information will be stored.
+	If the file does exist already, it will simply clear it out for the next write.
 	"""
 	def create_output_environment(dir, file) do
 		full_relative_path = "#{dir}/#{file}"
@@ -126,17 +127,19 @@ defmodule CoursesScraper.CLI do
 	end
 
 	@doc """
-	This function palallelizes the whole process. It gets the list of paths and map them into a list
-	of spawned concurrent processes in the Erlang Virtual Machine, where each process is responsible
-	for eventually sending a message to the current process with the processed data. That means, that 
-	there will be as many processes as paths to be requested in the list of paths. Once all the
-	processes have been spawned, we just wait for the messages to come.
+	This function palallelizes the whole process. It gets a list of paths and a list of functions
+	to be applied to each path. It basically maps a collection into a list of spawned concurrent
+	processes, where each process is responsible for eventually sending a message to the current process
+	with the processed data. That means, that there will be as many processes as paths to be requested
+	in the list of paths. Once all the processes have been spawned, we just wait for the messages to come.
 	"""
-	def parallel_process_list_of_paths(list_of_paths) do
+	def parallel_map_functions(collection, list_of_functions) do
 		me = self
-		list_of_paths
-			|> Enum.map(fn path -> 
-				spawn fn -> send me, { self, parallel_process(path) } end
+		collection
+			|> Enum.map(fn el -> 
+				spawn fn -> 
+					send me, { self, list_of_functions |> Enum.reduce(el, & &1.(&2)) }
+				end
 			end)
 			|> Enum.map(fn pid ->
 				receive do
@@ -146,23 +149,11 @@ defmodule CoursesScraper.CLI do
 	end
 
 	@doc """
-	This function is responsible for processing an individual path in a separate process.
-	If fetches the data from the course's website, then extract the data from the document,
-	then encode it into a JSON and finally prettify it. It handles any error that might 
-	happen during the execution, identifies the path that caused the error and purges it
-	from the original file to avoid future ocurrences of the same error.
+	this function appends the data passed as argument into the output file where the courses's
+	information will be stored.
 	"""
-	def parallel_process(path) do
-		try do
-			path 
-				|> fetch 
-				|> extract_data
-				|> Poison.encode!
-				|> :jsx.prettify
-		rescue 
-			_error -> 
-				System.cmd "sed", ["-i", "", "-e", "s/#{path}//g", "courses_paths"]
-				Logger.error "Error: Processing data /#{path}/"
-		end
+	def write_data_to_output_file(data) do
+ 		File.write "#{@output_dir}/#{@output_file}", data <> ",\n", [:append]
 	end
+
 end

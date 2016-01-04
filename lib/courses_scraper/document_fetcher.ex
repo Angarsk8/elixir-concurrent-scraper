@@ -2,7 +2,6 @@ defmodule CoursesScraper.DocumentFetcher do
 
 	require Logger
 
-	@user_agent [{"User-agent", "Andres andresa.garciah621@gmail.com"}]
 	@udemy_url Application.get_env :courses_scraper, :udemy_url
 
 	@moduledoc """
@@ -11,14 +10,21 @@ defmodule CoursesScraper.DocumentFetcher do
 	"""
 
 	@doc """
-	Fetch the data of an Udemy course's website using the HTTPoison
-	library to simulate an HTTP client, and handle the result to 
-	return some meaningful data to the caller of the function.
+	Fetch the data of an Udemy course's website using the HTTPoison library to simulate
+	an HTTP client, and handle the result to return some meaningful data to the caller
+	of the function. This function is embedded into a `try do - rescue` block because the 
+	`HTTPoison` library has a bug that limits a client to make "too many" requests.
 	"""
 	def fetch(course_path) do
-		build_course_url(course_path)
-			|> HTTPoison.get(@user_agent, [recv_timeout: :infinity])
-			|> handle_response(course_path)
+		try do
+			build_course_url(course_path)
+				|> HTTPoison.get([], [recv_timeout: :infinity, timeout: :infinity])	
+				|> handle_response(course_path)
+		rescue
+			error -> 
+				Logger.error "Error: #{inspect error} in /#{course_path}/ | Trying Again"
+				fetch(course_path)
+		end
 	end
 
 	@doc """
@@ -52,5 +58,10 @@ defmodule CoursesScraper.DocumentFetcher do
 	def handle_response({:error, %HTTPoison.Error{reason: reason}}, path) do
 		Logger.error "Error: #{reason} /#{path}/"
 		{:error, reason, path}
+	end
+
+	def handle_response(_, path) do
+		Logger.error "Error: Something happened processing /#{path}/"
+		{:error, :problem, path}
 	end
 end

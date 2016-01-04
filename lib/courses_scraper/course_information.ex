@@ -41,20 +41,10 @@ defmodule CourseData do
 	 		 			authors: [], enrolled: 0, rating: 0, average_rating: 0, price: 0
 
 	@doc """
-	Parse the data from a HTTP response and crawl the body to extract the needed data.
-
-	* Parse the data from a HTTP response and crawl the body to extract the needed data.
-	This function relies in the `build_course_struct` function to build the structure.
-
-	* Handle an erroneous HTTP response body and return a tuple with some meaningful values.
+	Builds the structure of an individual Udemy course. It parses the data
+	from a HTTP response and scrape the body to extract the needed data.
 	"""
-	def extract_data({:ok, body, path}), do: build_course_struct(body, path)
-	def extract_data(_response), do: {:error, :to_be_discarded}
-
-	@doc """
-	Builds the structure of an individual Udemy course.
-	"""
-	def build_course_struct(doc, path) do
+	def build_course_struct({:ok, doc, path}) do
 		[category, subcategory] = get_category(doc, "span.cats a")
 		[rating, enrolled] = get_enrolled(doc, ".enrolled span.rate-count")
 
@@ -70,6 +60,7 @@ defmodule CourseData do
 			price: get_price(doc, "meta[property='udemy_com:price']")
 		}
 	end
+	def build_course_struct(_), do: %CourseData{}
 
 	@doc """
 	Get the course category from the HTML document of the course's website,

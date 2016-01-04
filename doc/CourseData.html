@@ -131,19 +131,11 @@ iex&gt; CourseData.extract_data({:ok, body, &quot;android-basico&quot;})
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#build_course_struct/2">build_course_struct(doc, path)</a>
+    <a href="#build_course_struct/1">build_course_struct(arg1)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Builds the structure of an individual Udemy course</p>
-</div>
-  
-</div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#extract_data/1">extract_data(arg1)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Parse the data from a HTTP response and crawl the body to extract the needed data</p>
+    <div class="summary-synopsis"><p>Builds the structure of an individual Udemy course. It parses the data
+from a HTTP response and scrape the body to extract the needed data</p>
 </div>
   
 </div>
@@ -253,45 +245,22 @@ based on a CSS query</p>
 
   </section>
 </div>
-<div class="detail" id="build_course_struct/2">
+<div class="detail" id="build_course_struct/1">
   <div class="detail-header">
-    <a href="#build_course_struct/2" class="detail-link" title="Link to this function">
+    <a href="#build_course_struct/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">build_course_struct(doc, path)</span>
+    <span class="signature">build_course_struct(arg1)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L57" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L47" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
   
   <section class="docstring">
-    <p>Builds the structure of an individual Udemy course.</p>
-
-  </section>
-</div>
-<div class="detail" id="extract_data/1">
-  <div class="detail-header">
-    <a href="#extract_data/1" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">extract_data(arg1)</span>
-      
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L51" class="view-source" rel="help" title="View Source">
-       <i class="icon-code"></i>
-     </a>
-    
-  </div>
-  
-  <section class="docstring">
-    <p>Parse the data from a HTTP response and crawl the body to extract the needed data.</p>
-
-<ul>
-<li><p>Parse the data from a HTTP response and crawl the body to extract the needed data.
-This function relies in the <code>build_course_struct</code> function to build the structure.</p></li>
-<li><p>Handle an erroneous HTTP response body and return a tuple with some meaningful values.</p></li>
-</ul>
+    <p>Builds the structure of an individual Udemy course. It parses the data
+from a HTTP response and scrape the body to extract the needed data.</p>
 
   </section>
 </div>
@@ -302,7 +271,7 @@ This function relies in the <code>build_course_struct</code> function to build t
     </a>
     <span class="signature">get_authors(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L158" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L149" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -323,7 +292,7 @@ specific author data.</p>
     </a>
     <span class="signature">get_average_rating(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L122" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L113" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -343,7 +312,7 @@ the proper value</p>
     </a>
     <span class="signature">get_category(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L79" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L70" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -363,7 +332,7 @@ the proper value.</p>
     </a>
     <span class="signature">get_enrolled(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L104" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L95" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -383,7 +352,7 @@ to find the rating and the number of enrolled students as a list.</p>
     </a>
     <span class="signature">get_price(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L139" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L130" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -404,7 +373,7 @@ of transformations to get back the proper result.  </p>
     </a>
     <span class="signature">get_topic(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L92" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L83" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     

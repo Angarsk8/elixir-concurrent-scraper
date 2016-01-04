@@ -4,6 +4,8 @@
   "hackney": {:hex, :hackney, "1.4.7"},
   "hoedown": {:git, "https://github.com/hoedown/hoedown.git", "980b9c549b4348d50b683ecee6abee470b98acda", []},
   "httpoison": {:hex, :httpoison, "0.8.0"},
+  "httpotion": {:hex, :httpotion, "2.1.0"},
+  "ibrowse": {:git, "https://github.com/cmullaparthi/ibrowse.git", "ea3305d21f37eced4fac290f64b068e56df7de80", [tag: "v4.1.2"]},
   "idna": {:hex, :idna, "1.0.2"},
   "jsx": {:hex, :jsx, "2.8.0"},
   "markdown": {:git, "https://github.com/devinus/markdown.git", "9b3beaf69a9b9c6450526c41d591a94d2eedf1e8", []},

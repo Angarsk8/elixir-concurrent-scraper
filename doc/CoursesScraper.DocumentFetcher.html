@@ -106,15 +106,16 @@ and handle the result into a meaningful value.</p>
     <a href="#fetch/1">fetch(course_path)</a>
   </div>
   
-    <div class="summary-synopsis"><p>Fetch the data of an Udemy course&#39;s website using the HTTPoison
-library to simulate an HTTP client, and handle the result to 
-return some meaningful data to the caller of the function</p>
+    <div class="summary-synopsis"><p>Fetch the data of an Udemy course&#39;s website using the HTTPoison library to simulate
+an HTTP client, and handle the result to return some meaningful data to the caller
+of the function. This function is embedded into a <code>try do - rescue</code> block because the 
+<code>HTTPoison</code> library has a bug that limits a client to make &quot;too many&quot; requests</p>
 </div>
   
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#handle_response/2">handle_response(arg, path)</a>
+    <a href="#handle_response/2">handle_response(arg1, path)</a>
   </div>
   
     <div class="summary-synopsis"><p>Handle the response that comes from an HTTP GET request</p>
@@ -149,7 +150,7 @@ return some meaningful data to the caller of the function</p>
     </a>
     <span class="signature">build_course_url(course_path)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/document_fetcher.ex#L27" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/document_fetcher.ex#L33" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -174,9 +175,10 @@ return some meaningful data to the caller of the function</p>
   </div>
   
   <section class="docstring">
-    <p>Fetch the data of an Udemy course&#39;s website using the HTTPoison
-library to simulate an HTTP client, and handle the result to 
-return some meaningful data to the caller of the function.</p>
+    <p>Fetch the data of an Udemy course&#39;s website using the HTTPoison library to simulate
+an HTTP client, and handle the result to return some meaningful data to the caller
+of the function. This function is embedded into a <code>try do - rescue</code> block because the 
+<code>HTTPoison</code> library has a bug that limits a client to make &quot;too many&quot; requests.</p>
 
   </section>
 </div>
@@ -185,9 +187,9 @@ return some meaningful data to the caller of the function.</p>
     <a href="#handle_response/2" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">handle_response(arg, path)</span>
+    <span class="signature">handle_response(arg1, path)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/document_fetcher.ex#L42" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/document_fetcher.ex#L48" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
