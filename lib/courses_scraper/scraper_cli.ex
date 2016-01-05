@@ -47,6 +47,7 @@ defmodule CoursesScraper.CLI do
    # We use the Elixir built in parser module (OptionParser) to parse the data and also define
    # some switches to help the user to use the CLI and some aliases to improve the experience
    # of using it.
+   
    defp parse_args(argv) do
       parse = OptionParser.parse argv, switches: @cli_switches, aliases: @cli_aliases
       case parse do
@@ -58,7 +59,6 @@ defmodule CoursesScraper.CLI do
       end
    end
    
-   # This function safely casts an string into a integer within the context of this project
    defp safe_cast_to_int(string) do
       try do
          String.to_integer(string)
@@ -78,6 +78,7 @@ defmodule CoursesScraper.CLI do
    # 
    # * This fucntions is executed when the parser returns a signal different to help.
    # It just returns the parsed arguments.
+   
    defp handle_args(:help) do
       IO.puts """
       Usage: courses_scraper <file_with_list_of_paths> [<number_of_paths>] [--help] [--all]
@@ -90,7 +91,6 @@ defmodule CoursesScraper.CLI do
    end
    defp handle_args(parsed_args), do: parsed_args
    
-   # This function verifies if the file passed as argument to the command line exists or not.
    defp exists_file_with_paths?(parsed_args = {_, path_to_file_with_paths}) do
       case File.exists?(path_to_file_with_paths) do
          false ->
@@ -107,6 +107,7 @@ defmodule CoursesScraper.CLI do
    # it to get the data from it as an string and then splits it into an Elixir List, finally it
    # filter that list of paths based on the number passed as argument to the command line.
    # We perform a sane validation in the middle to ensure that the file was read succesfuly.
+   
    defp read_file_with_paths({option, path_to_file_with_paths}) do
       path_to_file_with_paths
          |> File.read
@@ -121,8 +122,9 @@ defmodule CoursesScraper.CLI do
    # * This function is resposible for handling the reading process. If it success it returns 
    # the string resulting from reading the file.
    # 
-   # *	This function is responsible for handling a posible failure in the reading process.
+   # * This function is responsible for handling a posible failure in the reading process.
    # If it fails it sumply prints a message to the console and halts the system with a status of 0.
+   
    defp handle_file_reading({:ok, string_of_paths}), do: string_of_paths
    defp handle_file_reading({:error, reason}) do
       IO.puts """
@@ -138,11 +140,15 @@ defmodule CoursesScraper.CLI do
    # 
    # * If the command line returns a signal different to :all, it filters the list based on the 
    # number given as argument to the command. 
+   
    defp filter_list_of_paths(list_of_paths, :all), do: list_of_paths
    defp filter_list_of_paths(list_of_paths, items), do: list_of_paths |> Enum.take(items)
    
    # This function is responsible for processing the whole list of paths. This transforms step by
-   # step the data and finally writes the result into an output file. 
+   # step the data and finally writes the result into an output file. It first creates and output
+   # environment to stored the results and then process each path concurrently applying a set of
+   # functions to each in separate processes.
+   
    defp process(list_of_paths) do
    
       create_output_environment(@output_dir, @output_file)
@@ -157,8 +163,6 @@ defmodule CoursesScraper.CLI do
          ])
    end
    
-   # This function creates the output location where the courses's information will be stored.
-   # If the file does exist already, it will simply clear it out for the next write.
    defp create_output_environment(dir, file) do
       full_relative_path = "#{dir}/#{file}"
       case File.exists?(full_relative_path) do
@@ -175,6 +179,7 @@ defmodule CoursesScraper.CLI do
    # processes, where each process is responsible for eventually sending a message to the current process
    # with the processed data. That means, that there will be as many processes as paths to be requested
    # in the list of paths. Once all the processes have been spawned, we just wait for the messages to come.
+   
    defp parallel_map_functions(collection, list_of_functions) do
 
       me = self
@@ -192,8 +197,6 @@ defmodule CoursesScraper.CLI do
          end)
    end
    
-   # this function appends the data passed as argument into the output file where the courses's
-   # information will be stored.
    defp write_data_to_output_file(data) do
       File.write "#{@output_dir}/#{@output_file}", data <> ",\n", [:append]
    end
