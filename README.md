@@ -1,4 +1,4 @@
-## Udemy Courses Scraping (Elixir/Mix Concurrent Version)
+## Udemy Courses Scraper (Elixir/Mix Concurrent Version)
 
 Make sure you have Erlang and [Elixir](http://elixir-lang.org/install.html) installed before you follow the next steps. If you are using OSX, just run `$ brew install elixir` and it will install both Erlang and Elixir for you. 
 
@@ -6,12 +6,70 @@ Make sure you have Erlang and [Elixir](http://elixir-lang.org/install.html) inst
 
 To execute this program, just run the following command:
 ```
-$ ./courses_scraper courses_paths
+$ ./courses_scraper <file_with_paths> [ <number_of_paths> | --all ] [--help]
 ```
 
-Where `./courses_scraper` is the actual executable and `courses_paths` is the file that contains the list of paths to be scraped in the Udemy website. Both of them are provided in the current project.
+where: 
 
-***Note***: you can provide your own file with some courses's paths by just pointing to that file when using the script.
+* `./courses_scraper` is the actual executable program.
+* `<file_with_paths>` is the file that contains the list of paths to be scraped in the Udemy website.
+* `<number_of_paths>` is the number of paths you want to scrape from `<file_with_paths>`.
+* `--all` is an option that you can use explicitely to scrape all the files from `<file_with_paths>`.
+* `--help` is an option to ask for help, showing details about the usage of this tools.
+
+### Sample Usage
+
+```
+$ ./courses_scraper courses_paths 5
+
+20:31:48.869 [info]  Succesful response: /aprende-wordpress-sin-conocimientos-previos/
+20:31:49.178 [info]  Succesful response: /android-basico/
+20:31:49.642 [info]  Succesful response: /desarrollo-ios-con-swift/
+20:31:49.671 [info]  Succesful response: /curso-completo-desarrollador-ios-15-apps/
+20:31:49.884 [info]  Succesful response: /curso-de-desarrollo-de-apps-para-ios-9/
+
+20:31:50.344 [info]  The overall processing took 3 sec to complete
+```
+
+***output/courses.json***:
+
+```javascript
+[
+  {
+    "url": "https://www.udemy.com/aprende-wordpress-sin-conocimientos-previos/",
+    "topic": "Aprende Wordpress sin conocimientos previos y gana dinero",
+    "subcategory": "Desarrollo Web",
+    "source": "Udemy",
+    "rating": 44,
+    "price": 9,
+    "enrolled": 2453,
+    "category": "Programación",
+    "average_rating": 4.6,
+    "authors": [
+      {
+        "youtube": "none",
+        "twitter": "https://twitter.com/oscarmartin",
+        "name": "Oscar Martin",
+        "linkedin": "none",
+        "googleplus": "none",
+        "facebook": "https://www.facebook.com/oscarmartinherrera"
+      }
+    ]
+  },
+  {
+    "url": "https://www.udemy.com/android-basico/",
+    "topic": "Android básico",
+    "subcategory": "Mobile Apps",
+    "source": "Udemy",
+    "rating": 77,
+    "price": 20,
+    "enrolled": 4279,
+    ...
+  },
+  ...
+]
+```
+
 
 ### Advanced Details
 
@@ -36,75 +94,3 @@ Where the `<path_to_the_file_with_courses_paths>` is a file containing the paths
 ```
 
 That means, the file must contains the paths that yield to their respective Udemy websites separated by one or more spaces. 
-
-### Sample Outputs 
-
-* ***output/courses.json***:
-
-```javascript
-[
-    {
-      "source": "Udemy",
-      "url": "https://www.udemy.com/curso-completo-desarrollador-ios-15-apps/",
-      "category": "Programación",
-      "subcategory": "Aplicaciones Móviles",
-      "topic": "iOS 8 y Swift Completo: Aprende creando 15 Apps reales",
-      "authors": [
-        {
-          "name": "Rob Percival",
-          "twitter": "https://twitter.com/techedrob",
-          "facebook": "https://www.facebook.com/rpcodestars",
-          "googleplus": "https://plus.google.com/112310006632536121434?rel=author",
-          "linkedin": "none",
-          "youtube": "https://www.youtube.com/user/robpercival",
-          "website": "http://www.completewebdevelopercourse.com"
-        },
-        {
-          "name": "KeepCoding Online",
-          "twitter": "https://twitter.com/@KeepCoding_es",
-          "facebook": "https://www.facebook.com/pages/Agbotraining/463644126986852",
-          "googleplus": "https://plus.google.com/https://plus.google.com/u/1/b/104277667088859577707/+KeepCoding/posts?rel=author",
-          "linkedin": "https://linkedin.com/company/keepcoding",
-          "youtube": "https://www.youtube.com/https://www.youtube.com/channel/UCz-oGx94gqD1lICJQZGniLA",
-          "website": "http://keepcoding.io/es/"
-        },
-        {
-          "name": "Juan José  Ramírez",
-          "twitter": "none",
-          "facebook": "none",
-          "googleplus": "none",
-          "linkedin": "none",
-          "youtube": "none",
-          "website": "http://agbo.biz/tech/curso-android-basico/"
-        }
-      ],
-      "enrolled": 743,
-      "rating": 28,
-      "average_rating": 4.9,
-      "price": 205
-    },
-    {
-      "source": "Udemy",
-      "url": "https://www.udemy.com/android-basico/",
-      "category": "Development",
-      "subcategory": "Mobile Apps",
-      "topic": "Android básico",
-      "authors": [
-        {
-          "name": "José Luján",
-          "twitter": "https://twitter.com/josedlujan",
-          "facebook": "https://www.facebook.com/josedlujan",
-          "googleplus": "https://plus.google.com/103871608091491576854?rel=author",
-          "linkedin": "https://linkedin.com/in/josedlujan/",
-          "youtube": "https://www.youtube.com/josedlujan1",
-          "website": "http://josedlujan.com"
-        }
-      ],
-      "enrolled": 4223,
-      "rating": 75,
-      "average_rating": 4.7,
-      "price": 20
-    },
-    ...
-]
-```

@@ -72,35 +72,33 @@
       
         <section id="moduledoc" class="docstring">
           <p>Provides a set of functions to crawl the data from a course&#39;s HTML document.
-It brings the ability   to build a struct with the needed information about a course.</p>
+   It brings the ability    to build a struct with the needed information about a course.</p>
 
-<h2>Example</h2>
-
-<pre><code class="iex elixir">iex&gt; {:ok, %HTTPoison.Response{status_code: 200, body: body}} = HTTPoison.get(&quot;https://www.udemy.com/android-basico/&quot;)
-{:ok, %HTTPoison.Response{status_code: 200, body: &quot;...&quot;}}
-iex&gt; CourseData.extract_data({:ok, body, &quot;android-basico&quot;})
-%CourseData{
-    url: &quot;https://udemy.com/android-basico&quot;,
-    topic: &quot;Android básico&quot;,
-    subcategory: &quot;Mobile Apps&quot;,
-    source: &quot;Udemy&quot;,
-    rating: 77,
-    price: 20,
-    enrolled: 4278,
-    category: &quot;Development&quot;,
-    average_rating: 4.6,
-    authors: [
-        %CourseAuthor{
-            youtube: &quot;https://www.youtube.com/josedlujan1&quot;,
-            twitter: &quot;https://twitter.com/josedlujan&quot;,
+<p>## Example
+   iex&gt; {:ok, %HTTPoison.Response{status<em>code: 200, body: body}} = HTTPoison.get(&quot;<a href="https://www.udemy.com/android-basico/%22">https://www.udemy.com/android-basico/&quot;</a>)
+   {:ok, %HTTPoison.Response{status</em>code: 200, body: &quot;...&quot;}}
+   iex&gt; CourseData.extract<em>data({:ok, body, &quot;android-basico&quot;})
+   %CourseData{
+      url: &quot;<a href="https://udemy.com/android-basico">https://udemy.com/android-basico</a>&quot;,
+      topic: &quot;Android básico&quot;,
+      subcategory: &quot;Mobile Apps&quot;,
+      source: &quot;Udemy&quot;,
+      rating: 77,
+      price: 20,
+      enrolled: 4278,
+      category: &quot;Development&quot;,
+      average</em>rating: 4.6,
+      authors: [
+         %CourseAuthor{
+            youtube: &quot;<a href="https://www.youtube.com/josedlujan1">https://www.youtube.com/josedlujan1</a>&quot;,
+            twitter: &quot;<a href="https://twitter.com/josedlujan">https://twitter.com/josedlujan</a>&quot;,
             name: &quot;José Luján&quot;,
-            linkedin: &quot;https://linkedin.com/in/josedlujan/&quot;,
+            linkedin: &quot;<a href="https://linkedin.com/in/josedlujan/">https://linkedin.com/in/josedlujan/</a>&quot;,
             googleplus: &quot;none&quot;,
-            facebook: &quot;https://www.facebook.com/josedlujan&quot;
-        }
-    ]
-}
-</code></pre>
+            facebook: &quot;<a href="https://www.facebook.com/josedlujan">https://www.facebook.com/josedlujan</a>&quot;
+         }
+      ]
+   }</p>
 
         </section>
       
@@ -271,7 +269,7 @@ from a HTTP response and scrape the body to extract the needed data.</p>
     </a>
     <span class="signature">get_authors(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L149" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L148" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -292,7 +290,7 @@ specific author data.</p>
     </a>
     <span class="signature">get_average_rating(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L113" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L112" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -332,7 +330,7 @@ the proper value.</p>
     </a>
     <span class="signature">get_enrolled(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L95" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L94" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -352,7 +350,7 @@ to find the rating and the number of enrolled students as a list.</p>
     </a>
     <span class="signature">get_price(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L130" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L129" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -362,7 +360,7 @@ to find the rating and the number of enrolled students as a list.</p>
     <p>Get the price from the HTML document of the course&#39;s website,
 based on a CSS query. This time the price was present in the head
 of the document as a metada field, so I applied some extra steps
-of transformations to get back the proper result.  </p>
+of transformations to get back the proper result.   </p>
 
   </section>
 </div>
@@ -373,7 +371,7 @@ of transformations to get back the proper result.  </p>
     </a>
     <span class="signature">get_topic(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L83" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L82" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     

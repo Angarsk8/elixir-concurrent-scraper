@@ -113,15 +113,6 @@ of the function. This function is embedded into a <code>try do - rescue</code> b
 </div>
   
 </div>
-<div class="summary-row">
-  <div class="summary-signature">
-    <a href="#handle_response/2">handle_response(arg1, path)</a>
-  </div>
-  
-    <div class="summary-synopsis"><p>Handle the response that comes from an HTTP GET request</p>
-</div>
-  
-</div>
 
   </div>
 
@@ -179,32 +170,6 @@ of the function. This function is embedded into a <code>try do - rescue</code> b
 an HTTP client, and handle the result to return some meaningful data to the caller
 of the function. This function is embedded into a <code>try do - rescue</code> block because the 
 <code>HTTPoison</code> library has a bug that limits a client to make &quot;too many&quot; requests.</p>
-
-  </section>
-</div>
-<div class="detail" id="handle_response/2">
-  <div class="detail-header">
-    <a href="#handle_response/2" class="detail-link" title="Link to this function">
-      <i class="icon-link"></i>
-    </a>
-    <span class="signature">handle_response(arg1, path)</span>
-      
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/document_fetcher.ex#L48" class="view-source" rel="help" title="View Source">
-       <i class="icon-code"></i>
-     </a>
-    
-  </div>
-  
-  <section class="docstring">
-    <p>Handle the response that comes from an HTTP GET request</p>
-
-<ul>
-<li><p>Handle a succesfull response with the form of  <code>{:ok, %HTTPoison.Response{status_code: 200, body: body}</code>,
-transparently log a message to the console and return a tuple with an atom indicating the success,
-the body of the response and the path requested</p></li>
-<li><p>Handle an useless response and return some meaningful data to the caller.</p></li>
-<li><p>Handle an erroneous response and return some meaningful data to the caller.</p></li>
-</ul>
 
   </section>
 </div>
