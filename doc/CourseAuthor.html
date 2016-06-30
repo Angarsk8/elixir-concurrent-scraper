@@ -76,17 +76,18 @@ It brings the ability   to build a struct with the needed information about the 
 
 <h2>Example</h2>
 
-<p>iex&gt; author<em>tree = &lt;some</em>nested<em>tree</em>object&gt;
-   <some_nested_tree_object>
-   iex&gt; CourseAuthor.build<em>author</em>struct(author_tree)
-      %CourseAuthor{
-      name: &quot;Rob Percival&quot;,
-      twitter: &quot;<a href="https://twitter.com/techedrob">https://twitter.com/techedrob</a>&quot;,
-      facebook: &quot;<a href="https://www.facebook.com/rpcodestars">https://www.facebook.com/rpcodestars</a>&quot;
-      googleplus: &quot;none&quot;,
-      linkedin: &quot;none&quot;,
-      youtube: &quot;<a href="https://www.youtube.com/user/robpercival">https://www.youtube.com/user/robpercival</a>&quot;
-   }</p>
+<pre><code class="iex elixir">iex&gt; author_tree = &lt;some_nested_tree_object&gt;
+&lt;some_nested_tree_object&gt;
+iex&gt; CourseAuthor.build_author_struct(author_tree)
+%CourseAuthor{
+  name: &quot;Rob Percival&quot;,
+  twitter: &quot;https://twitter.com/techedrob&quot;,
+  facebook: &quot;https://www.facebook.com/rpcodestars&quot;
+  googleplus: &quot;none&quot;,
+  linkedin: &quot;none&quot;,
+  youtube: &quot;https://www.youtube.com/user/robpercival&quot;
+}
+</code></pre>
 
         </section>
       
@@ -100,6 +101,19 @@ It brings the ability   to build a struct with the needed information about the 
             Summary
           </h1>
           
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:t/0">t()</a>
+  </div>
+  
+</div>
+
+  </div>
+
 
           
   <div class="summary-functions summary">
@@ -131,7 +145,7 @@ based on the HTML document tree passed as argument</p>
   </div>
   
     <div class="summary-synopsis"><p>Parses an HTML document tree that represents an author
-and find the name based on a CSS query</p>
+and find the name based on a CSS query string</p>
 </div>
   
 </div>
@@ -141,7 +155,7 @@ and find the name based on a CSS query</p>
   </div>
   
     <div class="summary-synopsis"><p>Parses an HTML document tree that represents an author
-and pattern match against a CSS query to find his 
+and pattern match against a CSS query string to find his
 social media contact link</p>
 </div>
   
@@ -157,6 +171,22 @@ social media contact link</p>
         </section>
       
 
+      
+        <section id="types" class="types details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <i class="icon-link"></i>
+            </a>
+            Types
+          </h1>
+          <div class="types-list">
+            <div id="t:t/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:t/0">t</a> :: %CourseAuthor{facebook: term, googleplus: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, linkedin: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, name: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, twitter: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, youtube: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
+  
+</div>
+
+          </div>
+        </section>
       
 
       
@@ -174,7 +204,7 @@ social media contact link</p>
     </a>
     <span class="signature">__struct__()</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L26" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L33" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -192,11 +222,20 @@ social media contact link</p>
     </a>
     <span class="signature">build_author_struct(author_tree)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L56" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L84" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">build_author_struct(author_tree) :: course_author when author_tree: Floki.Finder.html_tree, course_author: <a href="CourseAuthor.html#t:t/0">CourseAuthor.t</a></code></pre>
+        
+      </div>
+    </div>
   
   <section class="docstring">
     <p>Build a struct that identifies an author of a course
@@ -211,15 +250,24 @@ based on the HTML document tree passed as argument.</p>
     </a>
     <span class="signature">get_author_name(author_tree, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L32" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L46" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
   
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_author_name(author_tree, query) :: author_name when author_tree: Floki.Finder.html_tree, query: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, author_name: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
+  
   <section class="docstring">
     <p>Parses an HTML document tree that represents an author
-and find the name based on a CSS query.</p>
+and find the name based on a CSS query string.</p>
 
   </section>
 </div>
@@ -230,15 +278,24 @@ and find the name based on a CSS query.</p>
     </a>
     <span class="signature">get_contact_link(author_tree, keyword)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L44" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_author.ex#L64" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
   
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_contact_link(author_tree, keyword) :: contact_link when author_tree: Floki.Finder.html_tree, keyword: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, contact_link: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
+  
   <section class="docstring">
     <p>Parses an HTML document tree that represents an author
-and pattern match against a CSS query to find his 
+and pattern match against a CSS query string to find his
 social media contact link.</p>
 
   </section>

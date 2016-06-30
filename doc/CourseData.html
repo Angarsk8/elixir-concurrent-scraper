@@ -72,33 +72,35 @@
       
         <section id="moduledoc" class="docstring">
           <p>Provides a set of functions to crawl the data from a course&#39;s HTML document.
-   It brings the ability    to build a struct with the needed information about a course.</p>
+It brings the ability   to build a struct with the needed information about a course.</p>
 
-<p>## Example
-   iex&gt; {:ok, %HTTPoison.Response{status<em>code: 200, body: body}} = HTTPoison.get(&quot;<a href="https://www.udemy.com/android-basico/%22">https://www.udemy.com/android-basico/&quot;</a>)
-   {:ok, %HTTPoison.Response{status</em>code: 200, body: &quot;...&quot;}}
-   iex&gt; CourseData.extract<em>data({:ok, body, &quot;android-basico&quot;})
-   %CourseData{
-      url: &quot;<a href="https://udemy.com/android-basico">https://udemy.com/android-basico</a>&quot;,
-      topic: &quot;Android básico&quot;,
-      subcategory: &quot;Mobile Apps&quot;,
-      source: &quot;Udemy&quot;,
-      rating: 77,
-      price: 20,
-      enrolled: 4278,
-      category: &quot;Development&quot;,
-      average</em>rating: 4.6,
-      authors: [
-         %CourseAuthor{
-            youtube: &quot;<a href="https://www.youtube.com/josedlujan1">https://www.youtube.com/josedlujan1</a>&quot;,
-            twitter: &quot;<a href="https://twitter.com/josedlujan">https://twitter.com/josedlujan</a>&quot;,
-            name: &quot;José Luján&quot;,
-            linkedin: &quot;<a href="https://linkedin.com/in/josedlujan/">https://linkedin.com/in/josedlujan/</a>&quot;,
-            googleplus: &quot;none&quot;,
-            facebook: &quot;<a href="https://www.facebook.com/josedlujan">https://www.facebook.com/josedlujan</a>&quot;
-         }
-      ]
-   }</p>
+<h2>Example</h2>
+
+<pre><code class="iex elixir">iex&gt; {:ok, %HTTPoison.Response{status_code: 200, body: body}} = HTTPoison.get(&quot;https://www.udemy.com/android-basico/&quot;)
+{:ok, %HTTPoison.Response{status_code: 200, body: &quot;...&quot;}}
+iex&gt; CourseData.extract_data({:ok, body, &quot;android-basico&quot;})
+%CourseData{
+  url: &quot;https://udemy.com/android-basico&quot;,
+  topic: &quot;Android básico&quot;,
+  subcategory: &quot;Mobile Apps&quot;,
+  source: &quot;Udemy&quot;,
+  rating: 77,
+  price: 20,
+  enrolled: 4278,
+  category: &quot;Development&quot;,
+  average_rating: 4.6,
+  authors: [
+    %CourseAuthor{
+      youtube: &quot;https://www.youtube.com/josedlujan1&quot;,
+      twitter: &quot;https://twitter.com/josedlujan&quot;,
+      name: &quot;José Luján&quot;,
+      linkedin: &quot;https://linkedin.com/in/josedlujan/&quot;,
+      googleplus: &quot;none&quot;,
+      facebook: &quot;https://www.facebook.com/josedlujan&quot;
+    }
+  ]
+}
+</code></pre>
 
         </section>
       
@@ -112,6 +114,55 @@
             Summary
           </h1>
           
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:authors/0">authors()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:category_data/0">category_data()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:doc/0">doc()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:enrolled_data/0">enrolled_data()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:query/0">query()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:rating/0">rating()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:t/0">t()</a>
+  </div>
+  
+</div>
+
+  </div>
+
 
           
   <div class="summary-functions summary">
@@ -133,7 +184,7 @@
   </div>
   
     <div class="summary-synopsis"><p>Builds the structure of an individual Udemy course. It parses the data
-from a HTTP response and scrape the body to extract the needed data</p>
+from an HTTP response and scrape the body to extract the needed data</p>
 </div>
   
 </div>
@@ -162,7 +213,13 @@ the proper value</p>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#get_category/2">get_category(doc, query)</a>
+    <a href="#get_category/1">get_category(arg)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_category_data/2">get_category_data(doc, query)</a>
   </div>
   
     <div class="summary-synopsis"><p>Get the course category from the HTML document of the course&#39;s website,
@@ -173,7 +230,13 @@ the proper value</p>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#get_enrolled/2">get_enrolled(doc, query)</a>
+    <a href="#get_enrolled/1">get_enrolled(arg)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_enrolled_data/2">get_enrolled_data(doc, query)</a>
   </div>
   
     <div class="summary-synopsis"><p>Get the enrolled information subtree from the course&#39;s HTML document
@@ -192,6 +255,18 @@ based on a CSS query. This time the price was present in the head
 of the document as a metada field, so I applied some extra steps
 of transformations to get back the proper result</p>
 </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_rating/1">get_rating(arg)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_subcategory/1">get_subcategory(arg)</a>
+  </div>
   
 </div>
 <div class="summary-row">
@@ -216,6 +291,46 @@ based on a CSS query</p>
       
 
       
+        <section id="types" class="types details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <i class="icon-link"></i>
+            </a>
+            Types
+          </h1>
+          <div class="types-list">
+            <div id="t:authors/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:authors/0">authors</a> :: [<a href="CourseAuthor.html#t:t/0">CourseAuthor.t</a>]</code></pre>
+  
+</div>
+<div id="t:category_data/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:category_data/0">category_data</a> :: {<a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
+  
+</div>
+<div id="t:doc/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:doc/0">doc</a> :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+  
+</div>
+<div id="t:enrolled_data/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:enrolled_data/0">enrolled_data</a> :: {non_neg_integer, <a href="#t:rating/0">rating</a>}</code></pre>
+  
+</div>
+<div id="t:query/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:query/0">query</a> :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+  
+</div>
+<div id="t:rating/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:rating/0">rating</a> :: 0..100</code></pre>
+  
+</div>
+<div id="t:t/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:t/0">t</a> :: %CourseData{authors: <a href="#t:authors/0">authors</a>, average_rating: float, category: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, enrolled: non_neg_integer, price: non_neg_integer, rating: <a href="#t:rating/0">rating</a>, source: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, subcategory: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, topic: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>, url: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a>}</code></pre>
+  
+</div>
+
+          </div>
+        </section>
+      
 
       
         <section id="functions" class="details-list">
@@ -232,7 +347,7 @@ based on a CSS query</p>
     </a>
     <span class="signature">__struct__()</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L40" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L59" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
@@ -250,15 +365,24 @@ based on a CSS query</p>
     </a>
     <span class="signature">build_course_struct(arg1)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L47" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L70" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
   
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">build_course_struct(response) :: <a href="CourseData.html#t:t/0">CourseData.t</a> when response: <a href="CoursesScraper.DocumentFetcher.html#t:response/0">CoursesScraper.DocumentFetcher.response</a></code></pre>
+        
+      </div>
+    </div>
+  
   <section class="docstring">
     <p>Builds the structure of an individual Udemy course. It parses the data
-from a HTTP response and scrape the body to extract the needed data.</p>
+from an HTTP response and scrape the body to extract the needed data.</p>
 
   </section>
 </div>
@@ -269,11 +393,20 @@ from a HTTP response and scrape the body to extract the needed data.</p>
     </a>
     <span class="signature">get_authors(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L148" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L205" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_authors(<a href="#t:doc/0">doc</a>, <a href="#t:query/0">query</a>) :: <a href="#t:authors/0">authors</a></code></pre>
+        
+      </div>
+    </div>
   
   <section class="docstring">
     <p>Get the list of authors from the HTML document of the course&#39;s
@@ -290,11 +423,20 @@ specific author data.</p>
     </a>
     <span class="signature">get_average_rating(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L112" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L161" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_average_rating(<a href="#t:doc/0">doc</a>, <a href="#t:query/0">query</a>) :: avg_rating when avg_rating: float</code></pre>
+        
+      </div>
+    </div>
   
   <section class="docstring">
     <p>Get the average rating from the HTML document of the course&#39;s website,
@@ -303,18 +445,55 @@ the proper value</p>
 
   </section>
 </div>
-<div class="detail" id="get_category/2">
+<div class="detail" id="get_category/1">
   <div class="detail-header">
-    <a href="#get_category/2" class="detail-link" title="Link to this function">
+    <a href="#get_category/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">get_category(doc, query)</span>
+    <span class="signature">get_category(arg)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L70" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L108" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_category(<a href="#t:category_data/0">category_data</a>) :: subcategory when subcategory: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+          <pre><code class="elixir">get_category(<a href="#t:category_data/0">category_data</a>) :: category when category: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="get_category_data/2">
+  <div class="detail-header">
+    <a href="#get_category_data/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_category_data(doc, query)</span>
+      
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L98" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_category_data(<a href="#t:doc/0">doc</a>, <a href="#t:query/0">query</a>) :: <a href="#t:category_data/0">category_data</a></code></pre>
+        
+      </div>
+    </div>
   
   <section class="docstring">
     <p>Get the course category from the HTML document of the course&#39;s website,
@@ -323,18 +502,53 @@ the proper value.</p>
 
   </section>
 </div>
-<div class="detail" id="get_enrolled/2">
+<div class="detail" id="get_enrolled/1">
   <div class="detail-header">
-    <a href="#get_enrolled/2" class="detail-link" title="Link to this function">
+    <a href="#get_enrolled/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">get_enrolled(doc, query)</span>
+    <span class="signature">get_enrolled(arg)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L94" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L149" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_enrolled(<a href="#t:enrolled_data/0">enrolled_data</a>) :: non_neg_integer</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="get_enrolled_data/2">
+  <div class="detail-header">
+    <a href="#get_enrolled_data/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_enrolled_data(doc, query)</span>
+      
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L133" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_enrolled_data(<a href="#t:doc/0">doc</a>, <a href="#t:query/0">query</a>) :: <a href="#t:enrolled_data/0">enrolled_data</a></code></pre>
+        
+      </div>
+    </div>
   
   <section class="docstring">
     <p>Get the enrolled information subtree from the course&#39;s HTML document
@@ -350,18 +564,70 @@ to find the rating and the number of enrolled students as a list.</p>
     </a>
     <span class="signature">get_price(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L129" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L181" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_price(<a href="#t:doc/0">doc</a>, <a href="#t:query/0">query</a>) :: price when price: integer</code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    <p>Get the price from the HTML document of the course&#39;s website,
+based on a CSS query. This time the price was present in the head
+of the document as a metada field, so I applied some extra steps
+of transformations to get back the proper result.</p>
+
+  </section>
+</div>
+<div class="detail" id="get_rating/1">
+  <div class="detail-header">
+    <a href="#get_rating/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_rating(arg)</span>
+      
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L152" class="view-source" rel="help" title="View Source">
+       <i class="icon-code"></i>
+     </a>
+    
+  </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_rating(<a href="#t:enrolled_data/0">enrolled_data</a>) :: <a href="#t:rating/0">rating</a></code></pre>
+        
+      </div>
+    </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="get_subcategory/1">
+  <div class="detail-header">
+    <a href="#get_subcategory/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_subcategory(arg)</span>
+      
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L111" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
   
   <section class="docstring">
-    <p>Get the price from the HTML document of the course&#39;s website,
-based on a CSS query. This time the price was present in the head
-of the document as a metada field, so I applied some extra steps
-of transformations to get back the proper result.   </p>
-
+    
   </section>
 </div>
 <div class="detail" id="get_topic/2">
@@ -371,11 +637,20 @@ of transformations to get back the proper result.   </p>
     </a>
     <span class="signature">get_topic(doc, query)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L82" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L119" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">get_topic(<a href="#t:doc/0">doc</a>, <a href="#t:query/0">query</a>) :: topic when topic: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
   
   <section class="docstring">
     <p>Get the course topic from the HTML document of the course&#39;s website,

@@ -86,6 +86,49 @@ and handle the result into a meaningful value.</p>
             Summary
           </h1>
           
+  <div class="summary-types summary">
+    <h2>
+      <a href="#types">Types</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:body/0">body()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:http_resp/0">http_resp()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:info/0">info()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:path/0">path()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:response/0">response()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#t:signal/0">signal()</a>
+  </div>
+  
+</div>
+
+  </div>
+
 
           
   <div class="summary-functions summary">
@@ -108,7 +151,7 @@ and handle the result into a meaningful value.</p>
   
     <div class="summary-synopsis"><p>Fetch the data of an Udemy course&#39;s website using the HTTPoison library to simulate
 an HTTP client, and handle the result to return some meaningful data to the caller
-of the function. This function is embedded into a <code>try do - rescue</code> block because the 
+of the function. This function is embedded into a <code>try do - rescue</code> block because the
 <code>HTTPoison</code> library has a bug that limits a client to make &quot;too many&quot; requests</p>
 </div>
   
@@ -124,6 +167,44 @@ of the function. This function is embedded into a <code>try do - rescue</code> b
         </section>
       
 
+      
+        <section id="types" class="types details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#types">
+              <i class="icon-link"></i>
+            </a>
+            Types
+          </h1>
+          <div class="types-list">
+            <div id="t:body/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:body/0">body</a> :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+  
+</div>
+<div id="t:http_resp/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:http_resp/0">http_resp</a> ::
+  {:ok, HTTPoison.Response.t | HTTPoison.AsyncResponse.t} |
+  {:error, HTTPoison.Error.t}</code></pre>
+  
+</div>
+<div id="t:info/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:info/0">info</a> :: <a href="#t:body/0">body</a> | atom | :problem</code></pre>
+  
+</div>
+<div id="t:path/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:path/0">path</a> :: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+  
+</div>
+<div id="t:response/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:response/0">response</a> :: {<a href="#t:signal/0">signal</a>, <a href="#t:info/0">info</a>, <a href="#t:path/0">path</a>}</code></pre>
+  
+</div>
+<div id="t:signal/0" class="type-detail">
+  <pre><code class="elixir"><a href="#t:signal/0">signal</a> :: :ok | :not_useful | :error</code></pre>
+  
+</div>
+
+          </div>
+        </section>
       
 
       
@@ -141,11 +222,20 @@ of the function. This function is embedded into a <code>try do - rescue</code> b
     </a>
     <span class="signature">build_course_url(course_path)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/document_fetcher.ex#L33" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/document_fetcher.ex#L44" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
+  
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">build_course_url(<a href="#t:path/0">path</a>) :: url when url: <a href="http://elixir-lang.org/docs/stable/elixir/String.html#t:t/0">String.t</a></code></pre>
+        
+      </div>
+    </div>
   
   <section class="docstring">
     <p>Build the full URL to reach the course&#39;s website</p>
@@ -159,16 +249,25 @@ of the function. This function is embedded into a <code>try do - rescue</code> b
     </a>
     <span class="signature">fetch(course_path)</span>
       
-      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/document_fetcher.ex#L18" class="view-source" rel="help" title="View Source">
+      <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/document_fetcher.ex#L28" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
      </a>
     
   </div>
   
+    <div class="specs">
+      <h4 class="specs-title">Specs</h4>
+      <div class="specs-list">
+        
+          <pre><code class="elixir">fetch(<a href="#t:path/0">path</a>) :: <a href="#t:response/0">response</a></code></pre>
+        
+      </div>
+    </div>
+  
   <section class="docstring">
     <p>Fetch the data of an Udemy course&#39;s website using the HTTPoison library to simulate
 an HTTP client, and handle the result to return some meaningful data to the caller
-of the function. This function is embedded into a <code>try do - rescue</code> block because the 
+of the function. This function is embedded into a <code>try do - rescue</code> block because the
 <code>HTTPoison</code> library has a bug that limits a client to make &quot;too many&quot; requests.</p>
 
   </section>
