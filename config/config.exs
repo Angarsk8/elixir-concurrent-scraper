@@ -7,6 +7,6 @@ config :courses_scraper,
   cli_switches: [help: :boolean, all: :boolean],
   cli_aliases:  [h: :help, a: :all]
 
-config :logger, compile_time_purge_level: :info
+# config :logger, compile_time_purge_level: :info
 
 config :ex_doc, :markdown_processor, ExDoc.Markdown.Cmark

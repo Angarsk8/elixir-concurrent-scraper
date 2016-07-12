@@ -165,7 +165,7 @@ iex&gt; CourseData.extract_data({:ok, body, &quot;android-basico&quot;})
 </div>
 <div class="summary-row">
   <div class="summary-signature">
-    <a href="#build_course_struct/1">build_course_struct(arg1)</a>
+    <a href="#build_course_struct/1">build_course_struct(arg)</a>
   </div>
   
     <div class="summary-synopsis"><p>Builds the structure of an individual Udemy course. It parses the data
@@ -338,7 +338,7 @@ based on a CSS query</p>
     <a href="#build_course_struct/1" class="detail-link" title="Link to this function">
       <i class="icon-link"></i>
     </a>
-    <span class="signature">build_course_struct(arg1)</span>
+    <span class="signature">build_course_struct(arg)</span>
     
       <a href="https://github.com/angarsk8/elixir_courses_scraper/blob/master/lib/courses_scraper/course_information.ex#L78" class="view-source" rel="help" title="View Source">
        <i class="icon-code"></i>
@@ -351,7 +351,9 @@ based on a CSS query</p>
       <h4 class="specs-title">Specs</h4>
       <div class="specs-list">
         
-          <pre><code class="elixir">build_course_struct(response) :: <a href="CourseData.html#t:t/0">CourseData.t</a> when response: <a href="CoursesScraper.DocumentFetcher.html#t:response/0">CoursesScraper.DocumentFetcher.response</a></code></pre>
+          <pre><code class="elixir">build_course_struct(response) ::
+  <a href="CourseData.html#t:t/0">CourseData.t</a> |
+  no_return when response: <a href="CoursesScraper.DocumentFetcher.html#t:response/0">CoursesScraper.DocumentFetcher.response</a></code></pre>
         
       </div>
     </div>

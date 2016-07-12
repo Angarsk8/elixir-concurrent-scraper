@@ -195,7 +195,10 @@ defmodule CoursesScraper.CLI do
         { ^pid, data } ->
           data
         {:EXIT, pid, {:bad_data, path}} ->
-          Logger.info "#{inspect pid} died while scraping /#{path}/ (:bad_data)"
+          Logger.error "#{inspect pid} died while scraping /#{path}/ (:bad_data)"
+          :ok
+        {:EXIT, pid, {:bad_response, path}} ->
+          Logger.error "#{inspect pid} died because of bad response from /#{path}/ (:bad_response)"
           :ok
         _ ->
           :ok

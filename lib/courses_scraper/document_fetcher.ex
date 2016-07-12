@@ -9,9 +9,9 @@ defmodule CoursesScraper.DocumentFetcher do
   @udemy_url Application.get_env :courses_scraper, :udemy_url
 
   @type path      :: String.t
-  @type signal    :: :ok | :not_useful | :error
+  @type signal    :: :ok | :error
   @type body      :: String.t
-  @type info      :: body | atom | :problem
+  @type info      :: body | atom
   @type response  :: {signal, info, path}
   @type http_resp :: {:ok, HTTPoison.Response.t | HTTPoison.AsyncResponse.t} |
                      {:error, HTTPoison.Error.t}
@@ -59,16 +59,13 @@ defmodule CoursesScraper.DocumentFetcher do
     Logger.info "Succesful response: /#{path}/"
     {:ok, body, path}
   end
-  defp handle_response({:ok, %HTTPoison.Response{status_code: status_code, body: body}}, path) do
-    Logger.error "Error: Response returned #{status_code} /#{path}/"
-    {:not_useful, body, path}
+  defp handle_response({:ok, %HTTPoison.Response{status_code: _, body: body}}, path) do
+    {:error, body, path}
   end
   defp handle_response({:error, %HTTPoison.Error{reason: reason}}, path) do
-    Logger.error "Error: #{reason} /#{path}/"
     {:error, reason, path}
   end
   defp handle_response(_, path) do
-    Logger.error "Error: Something happened processing /#{path}/"
-    {:error, :problem, path}
+    {:error, :unknown, path}
   end
 end

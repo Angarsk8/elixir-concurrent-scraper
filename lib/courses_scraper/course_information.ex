@@ -72,7 +72,7 @@ defmodule CourseData do
   from an HTTP response and scrape the body to extract the needed data.
   """
 
-  @spec build_course_struct(response) :: CourseData.t when
+  @spec build_course_struct(response) :: CourseData.t | no_return when
     response: CoursesScraper.DocumentFetcher.response
 
   def build_course_struct({:ok, doc, path}) do
@@ -92,7 +92,7 @@ defmodule CourseData do
     _ ->
       exit({:bad_data, path})
   end
-  def build_course_struct(_), do: %CourseData{}
+  def build_course_struct({_, _, path}), do: exit({:bad_response, path})
 
   @doc """
   Get the course category from the HTML document of the course's website,
