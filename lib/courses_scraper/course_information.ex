@@ -36,28 +36,36 @@ defmodule CourseData do
   @type authors       :: [CourseAuthor.t]
   @type doc           :: String.t
   @type query         :: String.t
-  @type enrolled_data :: {non_neg_integer, rating}
-  @type rating        :: 0..100
   @type category_data :: {String.t, String.t}
 
   @type t :: %CourseData{
-    url: String.t,
-    topic: String.t,
-    subcategory: String.t,
-    source: String.t,
-    rating: rating,
-    price: non_neg_integer,
-    enrolled: non_neg_integer,
-    category: String.t,
+    url:            String.t,
+    topic:          String.t,
+    subcategory:    String.t,
+    source:         String.t,
+    rating:         non_neg_integer,
+    price:          non_neg_integer,
+    enrolled:       non_neg_integer,
+    category:       String.t,
     average_rating: float,
-    authors: authors
+    authors:        authors
   }
 
   @doc """
   Defines the fixed structure of a course.
   """
-  defstruct source: "Udemy", url: "", category: "", subcategory: "", topic: "",
-            authors: [], enrolled: 0, rating: 0, average_rating: 0, price: 0
+  defstruct(
+    source:        "Udemy",
+    url:           "",
+    category:      "",
+    subcategory:   "",
+    topic:         "",
+    authors:       [],
+    enrolled:       0,
+    rating:         0,
+    average_rating: 0,
+    price:          0
+  )
 
   @doc """
   Builds the structure of an individual Udemy course. It parses the data
@@ -68,18 +76,16 @@ defmodule CourseData do
     response: CoursesScraper.DocumentFetcher.response
 
   def build_course_struct({:ok, doc, path}) do
-    enrolled_data = get_enrolled_data(doc, ".enrolled span.rate-count")
     category_data = get_category_data(doc, "span.cats a")
-
     %CourseData{
       url: CoursesScraper.DocumentFetcher.build_course_url(path),
       category: get_category(category_data),
       subcategory: get_subcategory(category_data),
       topic: get_topic(doc, "h1.course-title"),
       authors: get_authors(doc, "[id=instructor]"),
-      enrolled: get_enrolled(enrolled_data),
-      rating: get_rating(enrolled_data),
-      average_rating: get_average_rating(doc, ".average-rate"),
+      enrolled: get_enrolled(doc, ".rate-count"),
+      rating: get_rating(doc, "[itemprop=ratingCount]"),
+      average_rating: get_average_rating(doc, "[itemprop=ratingValue]"),
       price: get_price(doc, "meta[property='udemy_com:price']")
     }
   rescue
@@ -126,48 +132,49 @@ defmodule CourseData do
   @doc """
   Get the enrolled information subtree from the course's HTML document
   and perform a `Regex.scan` against a fixed regular expression, in order
-  to find the rating and the number of enrolled students as a list.
+  to find the number of enrolled students.
   """
 
-  @spec get_enrolled_data(doc, query) :: enrolled_data
-  def get_enrolled_data(doc, query) do
-    enrolled_info =
-      doc
-      |> find(query)
-      |> text(deep: false)
-      |> String.strip()
-
-    ~r/[-+]?\d*\,\d+|\d+/
-    |> Regex.scan(enrolled_info)
-    |> Enum.map(fn [inf] ->
-      inf |> String.replace(~r/\,+\d+/, "") |> String.to_integer
-    end)
-    |> :erlang.list_to_tuple()
+  @spec get_enrolled(doc, query) :: enrolled when enrolled: non_neg_integer
+  def get_enrolled(doc, query) do
+    doc
+    |> find(query)
+    |> text(deep: false)
+    |> String.strip()
+    |> (&Regex.scan(~r/[-+]?\d*\,\d+|\d+/, &1)).()
+    |> List.flatten()
+    |> Enum.reverse()
+    |> hd()
+    |> String.replace(",", "")
+    |> String.to_integer()
   end
 
-  @spec get_enrolled(enrolled_data) :: non_neg_integer
-  def get_enrolled({enrolled, _}), do: enrolled
+  @doc """
+  Get the rating (amount of students who rated the course) from the HTML document of the course's website,
+  based on a CSS query
+  """
 
-  @spec get_rating(enrolled_data) :: rating
-  def get_rating({_, rating}), do: rating
+  @spec get_rating(doc, query) :: rating when rating: non_neg_integer
+  def get_rating(doc, query) do
+    doc
+    |> find(query)
+    |> attribute("content")
+    |> hd()
+    |> String.to_integer()
+  end
 
   @doc """
   Get the average rating from the HTML document of the course's website,
-  based on a CSS query and pattern match against the result to return
-  the proper value
+  based on a CSS query
   """
 
   @spec get_average_rating(doc, query) :: avg_rating when avg_rating: float
   def get_average_rating(doc, query) do
-    case find(doc, query) do
-      []     ->
-        0.0
-      result ->
-        result
-        |> text(deep: false)
-        |> String.strip()
-        |> String.to_float()
-    end
+    doc
+    |> find(query)
+    |> attribute("content")
+    |> hd()
+    |> String.to_float()
   end
 
   @doc """
@@ -179,18 +186,18 @@ defmodule CourseData do
 
   @spec get_price(doc, query) :: price when price: integer
   def get_price(doc, query) do
-    price =
+    str_price =
       doc
       |> find(query)
       |> attribute("content")
       |> hd()
       |> String.replace(~r/\D/, "")
 
-    case price do
+    case str_price do
       ""    ->
         0
-      price ->
-        String.to_integer(price)
+      str_price ->
+        String.to_integer(str_price)
     end
   end
 

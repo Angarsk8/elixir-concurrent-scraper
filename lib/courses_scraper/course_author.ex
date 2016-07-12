@@ -30,8 +30,14 @@ defmodule CourseAuthor do
   @doc """
   Defines the fixed structure of an author of a course.
   """
-  defstruct name:       "", twitter:  "", facebook: "",
-            googleplus: "", linkedin: "", youtube:  ""
+  defstruct(
+    name:       "",
+    twitter:    "",
+    facebook:   "",
+    googleplus: "",
+    linkedin:   "",
+    youtube:    ""
+  )
 
   @doc """
   Parses an HTML document tree that represents an author
